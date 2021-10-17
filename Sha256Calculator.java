@@ -4,6 +4,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.function.Consumer;
 
+/**
+ @brief Класс реализующий интерфейс Runnable
+ @detailed Перебирает комбинации и высчитывает sha
+ */
 public class Sha256Calculator implements Runnable {
 
     private final String prefix;

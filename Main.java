@@ -8,11 +8,22 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ @brief Класс для чтения из файла и создания потоков
+ @detailed Считывает построчно из файла и создает threadCount потоков с помощью ExecutorService
+ */
 public class Main {
-
+    /**
+     * CHAR_SEQUENCE_LENGTH - длина искомой буквенной комбинации
+     * CHAR_PREFIX_LENGTH - длина префикса, созданного для оптимизации поиска
+     */
     private static final int CHAR_SEQUENCE_LENGTH = 5;
     private static final int CHAR_PREFIX_LENGTH = 3;
 
+    /**
+     @brief метод для считывания имени файла и количества потоков с клавиатуры
+     @detailed Передает данные в метод fileStream
+     */
     public static void main(String[] args) {
         String fileName = "";
         int threadCount = 1;
@@ -33,6 +44,12 @@ public class Main {
         fileStream(fileName, threadCount);
     }
 
+    /**
+     @brief метод для создания потоков
+     @param fileName имя файла
+     @param threadCount количество потоков
+     @detailed Передает данные в метод fileStream
+     */
     private static void fileStream(String fileName, int threadCount) {
         long startTime;
         startTime = System.currentTimeMillis();
@@ -42,6 +59,7 @@ public class Main {
             while (scan.hasNextLine()) {
                 String hash = scan.nextLine();
                 ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+                //resultRef - строковая переменная, доступная во всех потоков
                 AtomicReference<String> resultRef = new AtomicReference<>();
 
                 CharSequenceGenerator prefixGenerator = new CharSequenceGenerator(

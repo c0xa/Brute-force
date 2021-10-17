@@ -4,13 +4,17 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+/**
+ @brief Класс с методами для оптимизации перебора
+ @detailed создает комбинации из sequenceLength символов 
+ */
 public class CharSequenceGenerator {
     private final int sequenceLength;
     private final char startChar;
     private final char endChar;
     private final Consumer<String> consumer;
     private final Predicate<String> predicate;
-
+    
     public CharSequenceGenerator(int sequenceLength, char startChar, char endChar,
                                  Consumer<String> consumer, Predicate<String> predicate) {
         this.sequenceLength = sequenceLength;
@@ -27,9 +31,6 @@ public class CharSequenceGenerator {
     }
 
     private void generateLvl(char[] stringSource, int lvl) {
-//        for (int i = 0; i < sequenceLength; i++)
-//            System.out.print(stringSource[i]);
-//        System.out.println();
         if (lvl < sequenceLength) {
             for (char ch = startChar; ch <= endChar; ch++) {
                 stringSource[lvl] = ch;
