@@ -5,18 +5,33 @@ import java.security.NoSuchAlgorithmException;
 import java.util.function.Consumer;
 
 /**
- @brief Класс реализующий интерфейс Runnable
- @detailed Перебирает комбинации и высчитывает sha
+ @brief The class that implements the Runnable interface
+ @detailed Iterates through combinations and calculates sha
  */
 public class Sha256Calculator implements Runnable {
 
+    /**  prefix */
     private final String prefix;
+    
+    /**  suffix length*/
     private final int suffixLength;
+    
+    /**  the initial search boundary */
     private final char startChar;
+
+    /**  the ultimate search boundary */
     private final char endChar;
+    
+    /**  result sha calculate*/
     private final String resultHash;
+
+    /**  the initial search boundary */
     private final Consumer<String> sourceStringHandler;
 
+    /** 
+     * Constructor - creating a new object with certain values
+     * @see CharSequenceGenerator#CharSequenceGenerator(String, int, char, char, String, Consumer<String>)
+     */
     public Sha256Calculator(String prefix, int suffixLength,
                             char startChar, char endChar,
                             String resultHash, Consumer<String> sourceStringHandler) {
@@ -28,6 +43,10 @@ public class Sha256Calculator implements Runnable {
         this.sourceStringHandler = sourceStringHandler;
     }
 
+    /**
+     * @brief The implementation of the run method
+     * @detailed creates combinations of full lenght characters
+     */
     @Override
     public void run() {
         MessageDigest digest;
@@ -42,6 +61,14 @@ public class Sha256Calculator implements Runnable {
         calculateHashesLvl(stringSource, digest, prefix.length(), 0);
     }
 
+    /**
+     * @brief procedure for generation new sequences
+     * @detailed find SHA result for char sequence
+     * @param stringSource string buffer
+     * @param digest MessageDigest
+     * @param offset prefix length
+     * @param lvl letter change level 
+     */
     private void calculateHashesLvl(char[] stringSource, MessageDigest digest, int offset, int lvl) {
         if (lvl < suffixLength) {
             for (char ch = startChar; ch <= endChar; ch++) {

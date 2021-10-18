@@ -9,20 +9,21 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- @brief Класс для чтения из файла и создания потоков
- @detailed Считывает построчно из файла и создает threadCount потоков с помощью ExecutorService
+ @brief A class for reading from a file and creating streams
+ @detailed Reads line by line from the file and creates threadCount of threads using ExecutorService
  */
 public class Main {
-    /**
-     * CHAR_SEQUENCE_LENGTH - длина искомой буквенной комбинации
-     * CHAR_PREFIX_LENGTH - длина префикса, созданного для оптимизации поиска
-     */
+
+    /**  the length of the desired letter combination */
+    
     private static final int CHAR_SEQUENCE_LENGTH = 5;
+
+    /**  the length of the prefix created for search optimization */
     private static final int CHAR_PREFIX_LENGTH = 3;
 
     /**
-     @brief метод для считывания имени файла и количества потоков с клавиатуры
-     @detailed Передает данные в метод fileStream
+     @brief a method for reading the file name and the number of threads from the keyboard
+     @detailed Passes data to the FileStream method
      */
     public static void main(String[] args) {
         String fileName = "";
@@ -45,10 +46,10 @@ public class Main {
     }
 
     /**
-     @brief метод для создания потоков
-     @param fileName имя файла
-     @param threadCount количество потоков
-     @detailed Передает данные в метод fileStream
+     @brief procedure for creating streams
+     @param fileName file name
+     @param threadCount number of threads
+     @detailed passes data to the FileStream method
      */
     private static void fileStream(String fileName, int threadCount) {
         long startTime;
@@ -59,7 +60,7 @@ public class Main {
             while (scan.hasNextLine()) {
                 String hash = scan.nextLine();
                 ExecutorService executor = Executors.newFixedThreadPool(threadCount);
-                //resultRef - строковая переменная, доступная во всех потоков
+                /** resultRef - string variable available in all threads */
                 AtomicReference<String> resultRef = new AtomicReference<>();
 
                 CharSequenceGenerator prefixGenerator = new CharSequenceGenerator(
